@@ -6,7 +6,7 @@ JAVA = java
 SERVER = TCPServer
 CLIENT = TCPClient
 
-all: compile
+all: compilem
 
 # Compile both files
 compile:
