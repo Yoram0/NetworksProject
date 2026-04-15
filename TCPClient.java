@@ -13,7 +13,6 @@ class TCPClient {
     String host = (argv.length > 1) ? argv[1] : "127.0.0.1";
     int port = (argv.length > 2) ? Integer.parseInt(argv[2]) : 6789;
 
-
     System.out.println("Client is running:");
 
     try (Socket clientSocket = new Socket(host, port)) {
@@ -31,13 +30,17 @@ class TCPClient {
         outToServer.writeBytes(sentence + '\n');
 
         modifiedSentence = inFromServer.readLine();
+        if (modifiedSentence == null) {
+          System.out.println("Server closed the connection.");
+          break;
+        }
         System.out.println("FROM SERVER: " + modifiedSentence);
       }
       clientSocket.close();
       System.out.println("Connection closed.");
-      } catch (ConnectException e) {
+    } catch (ConnectException e) {
       System.out.println("Could not connect to server at " + host + ":" + port + ".");
-      } catch (SocketException  e) {
+    } catch (SocketException e) {
       System.out.println("Lost connection to server. Message not recieved.");
     }
   }

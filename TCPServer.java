@@ -4,12 +4,13 @@ import java.time.*;
 
 class TCPServer {
   static int clientCount = 0;
+
   public static void main(String argv[]) throws Exception {
 
     ServerSocket welcomeSocket = new ServerSocket(6789);
 
     try {
-      
+
       System.out.println("Server is UP and running!");
       System.out.println("Connected clients: " + clientCount);
       while (true) {
@@ -49,7 +50,10 @@ class TCPServer {
             e.printStackTrace();
           } finally {
             clientCount--;
-            try { connectionSocket.close(); } catch (IOException e) {}
+            try {
+              connectionSocket.close();
+            } catch (IOException e) {
+            }
           }
         }).start();
       }
