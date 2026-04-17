@@ -6,20 +6,20 @@ JAVA = java
 SERVER = TCPServer
 CLIENT = TCPClient
 
-all: compilem
+# Default target
+all: compile
 
 # Compile both files
 compile:
-	$(JAVAC) $(SERVER).java
-	$(JAVAC) $(CLIENT).java
+	$(JAVAC) $(SERVER).java $(CLIENT).java
 
 # Run server
-server:
+server: compile
 	$(JAVA) $(SERVER)
 
-# Run client
-client:
-	$(JAVA) $(CLIENT)
+# Run client (supports args: name host port)
+client: compile
+	$(JAVA) $(CLIENT) user 127.0.0.1 6789
 
 # Clean compiled files
 clean:
