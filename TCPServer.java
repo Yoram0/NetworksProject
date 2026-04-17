@@ -110,10 +110,11 @@ public static int convertString(String s)
           try {
             int clientResult = TCPServer.convertString(req.expression);
             System.out.println("Server received message from '" + req.clientName + "': " + req.expression + " = " + clientResult);
-            req.outToClient.writeBytes("Result: " + clientResult + "\n");
-          } catch (ArithmeticException e) {
+            req.outToClient.writeBytes("Result: " + clientResult + "\n"); // return the result
+          } catch (ArithmeticException e) { //if the client divides by 0
             req.outToClient.writeBytes("ERROR: " + e.getMessage() + "\n");
           } catch (IllegalArgumentException e) {
+            System.out.println("Server received message from '" + req.clientName + "': " + req.expression);
             req.outToClient.writeBytes("ERROR: " + e.getMessage() + "\n");
           }
 
